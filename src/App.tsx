@@ -30,25 +30,56 @@ export default function App() {
   };
 
   return (
-    <main className="container">
-      <h1>Aku Mw Magang</h1>
+    <>
+      <header className="navbar">
+        <div className="navbar-inner">
+          <a href="#" className="logo">
+            Aku Mw <span>Magang</span>
+          </a>
+          <nav className="nav-links">
+            <a href="#profil">Profil Skill</a>
+            <a href="#lowongan">Lowongan</a>
+            <a href="#tambah">Tambah Lamaran</a>
+          </nav>
+        </div>
+      </header>
 
-      <SkillProfile
-        skills={kaptenSkills}
-        onAddSkill={handleAddSkill}
-        onRemoveSkill={handleRemoveSkill}
-      />
+      <section className="hero">
+        <div className="hero-inner">
+          <span className="hero-badge">MAGANG 2026</span>
+          <h1>
+            Kelola Lamaran <span>Magangmu</span> di Satu Tempat
+          </h1>
+          <p>Cari lowongan, cek kecocokan skill, dan pantau semua lamaran Kapten sampai dapat offer.</p>
+        </div>
+      </section>
 
-      <ApplicationForm
-        applications={applications}
-        onAddApplication={handleAddApplication}
-      />
+      <main className="container">
+        <div className="two-col">
+          <div id="profil">
+            <SkillProfile
+              skills={kaptenSkills}
+              onAddSkill={handleAddSkill}
+              onRemoveSkill={handleRemoveSkill}
+            />
+          </div>
 
-      <JobExplorer
-        kaptenSkills={kaptenSkills}
-        applications={applications}
-        onSaveJob={handleSaveJob}
-      />
-    </main>
+          <div id="tambah">
+            <ApplicationForm
+              applications={applications}
+              onAddApplication={handleAddApplication}
+            />
+          </div>
+        </div>
+
+        <div id="lowongan">
+          <JobExplorer
+            kaptenSkills={kaptenSkills}
+            applications={applications}
+            onSaveJob={handleSaveJob}
+          />
+        </div>
+      </main>
+    </>
   );
 }
