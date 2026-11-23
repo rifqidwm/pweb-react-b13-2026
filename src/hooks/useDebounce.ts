@@ -1,0 +1,15 @@
+import { useEffect, useState } from "react";
+
+// Nilai baru baru dipakai setelah user berhenti mengetik selama `delay` ms
+export function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay);
+
+    // Cleanup: batalkan timer lama setiap kali value berubah
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}

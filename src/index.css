@@ -1,0 +1,50 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #f4f6fa;
+  color: #1f2933;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 24px 16px; }
+
+.panel {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+
+input, select, button { font: inherit; padding: 8px 10px; border-radius: 6px; border: 1px solid #cbd2d9; }
+button { background: #2563eb; color: #fff; border: none; cursor: pointer; }
+button:disabled { background: #9aa5b1; cursor: not-allowed; }
+
+.form { display: grid; gap: 12px; }
+.form label { display: grid; gap: 4px; }
+
+.chip-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: #e0e7ff; border-radius: 999px; padding: 4px 6px 4px 12px; display: flex; align-items: center; gap: 6px; }
+.chip-remove { background: transparent; color: #1e3a8a; padding: 0 6px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.card { border: 1px solid #e4e7eb; border-radius: 8px; padding: 12px; }
+.card h3 { margin: 0 0 4px; }
+.card-head { display: flex; justify-content: space-between; gap: 8px; }
+
+.badge { padding: 4px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap; height: fit-content; }
+.badge-green { background: #d1fae5; color: #065f46; }
+.badge-yellow { background: #fef3c7; color: #92400e; }
+.badge-red { background: #fee2e2; color: #991b1b; }
+
+.muted { color: #616e7c; }
+.missing { color: #b91c1c; }
+.error-text { color: #b91c1c; font-size: 0.9em; }
+.error-box { background: #fee2e2; padding: 12px; border-radius: 8px; }
+
+@media (max-width: 600px) {
+  .row { flex-direction: column; }
+}

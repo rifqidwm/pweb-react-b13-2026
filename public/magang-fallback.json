@@ -1,0 +1,20 @@
+{
+  "job-count": 15,
+  "jobs": [
+    { "id": 1001, "title": "Frontend Intern", "company_name": "Nusantara Cloud", "category": "Software Development", "candidate_required_location": "Surabaya (Hybrid)", "salary": "Rp 4.500.000", "tags": ["React", "TypeScript", "CSS"] },
+    { "id": 1002, "title": "Backend Intern", "company_name": "Garuda Data", "category": "Software Development", "candidate_required_location": "Jakarta (Onsite)", "salary": "Rp 5.000.000", "tags": ["Node.js", "Express", "PostgreSQL", "Docker"] },
+    { "id": 1003, "title": "Fullstack Intern", "company_name": "Kopi Digital", "category": "Software Development", "candidate_required_location": "Remote", "salary": "Rp 4.000.000", "tags": ["React", "TypeScript", "Node.js", "Docker"] },
+    { "id": 1004, "title": "UI Engineer Intern", "company_name": "Batik Labs", "category": "Design", "candidate_required_location": "Bandung (Hybrid)", "salary": "Rp 3.500.000", "tags": ["CSS", "Figma", "HTML"] },
+    { "id": 1005, "title": "Mobile Developer Intern", "company_name": "Rempah Apps", "category": "Mobile Development", "candidate_required_location": "Yogyakarta (Onsite)", "salary": "Rp 3.800.000", "tags": ["Flutter", "Dart", "Firebase"] },
+    { "id": 1006, "title": "DevOps Intern", "company_name": "Selat Infra", "category": "DevOps", "candidate_required_location": "Remote", "salary": "Rp 5.500.000", "tags": ["Docker", "Linux", "Kubernetes"] },
+    { "id": 1007, "title": "Data Analyst Intern", "company_name": "Merapi Analytics", "category": "Data", "candidate_required_location": "Jakarta (Hybrid)", "salary": "Rp 4.200.000", "tags": ["Python", "SQL", "Excel"] },
+    { "id": 1008, "title": "React Developer Intern", "company_name": "Lontar Tech", "category": "Software Development", "candidate_required_location": "Surabaya (Onsite)", "salary": "Rp 4.000.000", "tags": ["React", "JavaScript", "CSS", "Git"] },
+    { "id": 1009, "title": "QA Engineer Intern", "company_name": "Borobudur Soft", "category": "QA", "candidate_required_location": "Semarang (Hybrid)", "salary": "Rp 3.500.000", "tags": ["Testing", "JavaScript", "Cypress"] },
+    { "id": 1010, "title": "Machine Learning Intern", "company_name": "Komodo AI", "category": "Data", "candidate_required_location": "Remote", "salary": "Rp 6.000.000", "tags": ["Python", "TensorFlow", "SQL"] },
+    { "id": 1011, "title": "Web Developer Intern", "company_name": "Pelangi Studio", "category": "Software Development", "candidate_required_location": "Malang (Onsite)", "salary": "Rp 3.000.000", "tags": ["HTML", "CSS", "JavaScript"] },
+    { "id": 1012, "title": "Frontend Engineer Intern", "company_name": "Samudra Pay", "category": "Software Development", "candidate_required_location": "Jakarta (Hybrid)", "salary": "Rp 5.000.000", "tags": ["React", "TypeScript", "Tailwind", "Jest"] },
+    { "id": 1013, "title": "Cloud Engineer Intern", "company_name": "Nusantara Cloud", "category": "DevOps", "candidate_required_location": "Surabaya (Hybrid)", "salary": "Rp 5.200.000", "tags": ["AWS", "Docker", "Linux"] },
+    { "id": 1014, "title": "Software Engineer Intern", "company_name": "Wayang Logistics", "category": "Software Development", "candidate_required_location": "Remote", "salary": "Rp 4.800.000", "tags": ["Java", "Spring", "SQL"] },
+    { "id": 1015, "title": "Product Engineer Intern", "company_name": "Angklung Edu", "category": "Software Development", "candidate_required_location": "Bandung (Onsite)", "salary": "Rp 4.300.000", "tags": ["React", "TypeScript", "CSS", "Express"] }
+  ]
+}
