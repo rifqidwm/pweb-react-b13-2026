@@ -1,0 +1,17 @@
+/* Style milik Helen (prefix oc-). Warna hanya dari CSS variables agar ikut dark mode. */
+
+.oc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 16px; }
+.oc-head h2 { margin-bottom: 4px; }
+.oc-head p { margin: 0; }
+.oc-selects { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; max-width: 100%; }
+.oc-selects select { width: 260px; max-width: 100%; }
+
+.oc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 16px; }
+.oc-best { border-top: 4px solid var(--primary); }
+.oc-badge { background: var(--primary-soft); color: var(--link); }
+.oc-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.oc-table th, .oc-table td { text-align: left; padding: 10px 4px; border-bottom: 1px solid var(--border); }
+.oc-table th { font-weight: 500; color: var(--muted); }
+.oc-table td:last-child { text-align: right; white-space: nowrap; font-family: ui-monospace, monospace; }
+.card .oc-total { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: auto; padding: 12px; border-radius: 12px; background: var(--card-muted); }
+.oc-total strong { font-size: 1.6rem; color: var(--link); }

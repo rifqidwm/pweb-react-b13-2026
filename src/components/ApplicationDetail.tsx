@@ -4,6 +4,10 @@ import { getSkillMatch } from "../utils/skillMatch";
 import { canBeGhosted } from "../utils/ghosting";
 import { InterviewPrep } from "./InterviewPrep";
 import { StatusBadge } from "./StatusBadge";
+import { ActivityLogList } from "./ActivityLogList";
+import { Checklist } from "./Checklist";
+import { StatusTransition } from "./StatusTransition";
+import "./ApplicationDetail.css";
 
 // KONTRAK props Sabil <-> Helen. Lihat docs/KONTRAK-HELEN.md
 export interface ApplicationDetailProps {
@@ -19,6 +23,7 @@ export interface ApplicationDetailProps {
 export function ApplicationDetail({
   application,
   kaptenSkills,
+  onUpdateApplication,
   onDeleteApplication,
   onSimulateGhosting,
 }: ApplicationDetailProps) {
@@ -26,7 +31,7 @@ export function ApplicationDetail({
   const canSimulate = canBeGhosted(application.status);
 
   return (
-    <div className="detail">
+    <div className="detail hd">
       <div className="card-head">
         <div>
           <h2>
@@ -59,12 +64,20 @@ export function ApplicationDetail({
       </div>
       {!canSimulate && <p className="hint">Simulasi hanya untuk status APPLIED/SCREENING.</p>}
 
-      <p className="placeholder-note">
-        Placeholder Helen (Fitur 4): transisi status sesuai state machine, input kondisional,
-        nested checklist + progress bar, activity log + catatan manual.
-      </p>
-
-      <InterviewPrep />
+            <div className="hd-body">
+        <div>
+          <StatusTransition
+            key={application.status}
+            application={application}
+            onUpdateApplication={onUpdateApplication}
+          />
+          <Checklist application={application} onUpdateApplication={onUpdateApplication} />
+        </div>
+        <aside className="hd-side">
+          <InterviewPrep />
+          <ActivityLogList application={application} onUpdateApplication={onUpdateApplication} />
+        </aside>
+      </div>
     </div>
   );
 }
