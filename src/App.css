@@ -1,0 +1,243 @@
+/* Style milik Sabil: tab navbar, modal, status pill, War Room, statistik, toast, dark mode.
+   Memakai CSS variables milik Rifqi di index.css (--primary, --text, --muted, --border,
+   --surface, --white, --success, --danger, --radius, --shadow, ...).
+   Variable tambahan di bawah memakai nama sendiri, tidak menimpa variable Rifqi. */
+:root {
+  --card: var(--white);
+  --card-muted: #f8fafc;
+  --link: var(--primary);
+  --disabled-bg: #e2e8f0;
+  --disabled-text: var(--muted);
+  --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --danger-strong: #991b1b;
+  --backdrop: rgba(9, 31, 83, 0.55);
+  --toast-bg: var(--navy);
+  --toast-text: #ffffff;
+  --toast-link: #93c5fd;
+}
+
+/* ===== Dark mode (bonus) =====
+   Aktif saat <html data-theme="dark"> (diatur App lewat useEffect).
+   Light mode = style asli, tidak ada yang diubah. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* variable netral milik Rifqi, hanya diganti di dark mode */
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --border: #334155;
+  --surface: #0b1220;
+  --primary-soft: rgba(96, 165, 250, 0.16);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* variable milik Sabil */
+  --card: #162033;
+  --card-muted: #0f1a2b;
+  --link: #93c5fd;
+  --disabled-bg: #334155;
+  --disabled-text: #94a3b8;
+  --danger-soft: #3b1219;
+  --danger-border: #7f1d1d;
+  --danger-strong: #fecaca;
+  --backdrop: rgba(0, 0, 0, 0.7);
+  --toast-bg: #e2e8f0;
+  --toast-text: #0f172a;
+  --toast-link: #1d4ed8;
+}
+
+/* Bagian Rifqi yang memakai warna putih/tetap: diganti hanya di dark mode.
+   --white sengaja tidak diubah karena juga dipakai untuk teks hero & teks tombol. */
+[data-theme="dark"] .navbar { background: rgba(11, 18, 32, 0.92); }
+[data-theme="dark"] .logo { color: var(--text); }
+[data-theme="dark"] .logo span { color: #60a5fa; }
+[data-theme="dark"] .panel,
+[data-theme="dark"] .card { background: var(--card); }
+[data-theme="dark"] input,
+[data-theme="dark"] select { background: var(--card-muted); }
+[data-theme="dark"] button:disabled { background: var(--disabled-bg); color: var(--disabled-text); }
+[data-theme="dark"] .chip,
+[data-theme="dark"] .chip-remove { color: #93c5fd; }
+[data-theme="dark"] .badge-yellow { color: #fbbf24; }
+/* Teks badge dipertegas supaya kontras di atas latar pastelnya (WCAG AA) */
+[data-theme="dark"] .badge-green { color: #166534; }
+[data-theme="dark"] .badge-red { color: #991b1b; }
+[data-theme="dark"] .error-box { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger-strong); }
+[data-theme="dark"] .error-text,
+[data-theme="dark"] .missing { color: #f87171; }
+/* Komponen Sabil yang butuh warna lebih terang di latar gelap */
+[data-theme="dark"] .btn-danger,
+[data-theme="dark"] .stat-danger { color: #f87171; }
+[data-theme="dark"] .stat-success { color: #4ade80; }
+
+/* ===== Navbar: tab sesuai wireframe (dalam .navbar milik Rifqi) ===== */
+.app-navbar { flex-wrap: wrap; }
+
+.nav-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.nav-tab {
+  background: transparent;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.nav-tab:hover { background: var(--primary-soft); color: var(--link); }
+.nav-tab-active,
+.nav-tab-active:hover { background: var(--primary-soft); color: var(--link); font-weight: 700; }
+
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.btn-cta { padding: 8px 16px; }
+.btn-theme { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 8px 12px; }
+.btn-theme:hover { background: var(--primary-soft); }
+
+@media (max-width: 860px) {
+  .nav-tabs { order: 3; width: 100%; flex-wrap: nowrap; overflow-x: auto; }
+  .nav-tab { white-space: nowrap; }
+}
+
+/* Target scroll tombol "+ Catat Lamaran" tidak tertutup navbar sticky */
+.scroll-target { scroll-margin-top: 80px; }
+
+/* ===== Tombol varian ===== */
+/* border transparan: tombol biru sama tinggi dengan tombol ber-border di sebelahnya */
+.btn-sm { padding: 6px 10px; font-size: 0.85rem; border-radius: 10px; border: 1px solid transparent; }
+.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--card-muted); }
+.btn-danger { background: var(--card); color: var(--danger); border: 1px solid var(--danger-border); }
+.btn-danger:hover { background: var(--danger-soft); }
+.btn-secondary:disabled,
+.btn-danger:disabled { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); }
+
+.hint { font-size: 0.82rem; color: var(--muted); margin: 4px 0 0; }
+
+/* ===== Status pill ===== */
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  height: fit-content;
+}
+.status-wishlist { background: #e2e8f0; color: #334155; }
+.status-applied { background: #dbeafe; color: #1e40af; }
+.status-screening { background: #e0e7ff; color: #3730a3; }
+.status-interview { background: #fef3c7; color: #92400e; }
+.status-offer { background: #dcfce7; color: #166534; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-ghosted { background: #f3e8ff; color: #6b21a8; }
+
+/* ===== Banner bentrok jadwal interview ===== */
+.banner-conflict {
+  position: relative; /* tampil di atas hero (container Rifqi memakai margin negatif) */
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-border);
+  border-left: 4px solid var(--danger);
+  color: var(--danger-strong);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+}
+.banner-conflict ul { margin: 6px 0 0; padding-left: 20px; }
+
+/* ===== 5 kartu statistik (di atas .panel milik Rifqi) ===== */
+.stats-grid {
+  position: relative; /* tampil di atas hero (container Rifqi memakai margin negatif) */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card { margin: 0; padding: 16px 20px; display: grid; gap: 2px; }
+.stat-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.stat-value { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
+.stat-note { font-size: 0.8rem; color: var(--muted); }
+.stat-danger { color: var(--danger); }
+.stat-success { color: var(--success); }
+
+/* ===== War Room ===== */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.section-head h2 { margin-bottom: 0; }
+
+.toolbar input[type="search"] { flex: 1 1 240px; }
+.toggle { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
+/* .row input milik Rifqi membuat input melebar; checkbox tidak boleh ikut */
+.toolbar .toggle input { flex: none; min-width: 0; width: 16px; height: 16px; padding: 0; }
+
+.empty-state { text-align: center; padding: 24px 0; }
+
+/* ===== Kartu lamaran (di atas .card milik Rifqi) ===== */
+/* Penanda ghosting lewat garis merah di kiri; latar kartu tidak diubah supaya teks tetap kontras */
+.card-ghosting,
+.card-ghosting:hover { border-color: var(--danger-border); border-left: 4px solid var(--danger); }
+.badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.meta { display: grid; gap: 4px; font-size: 0.9rem; }
+/* 3 tombol (Detail, Simulasi, Hapus) muat dalam 1 baris di kartu */
+.card-actions { margin: auto 0 0; gap: 6px; }
+
+.progress { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--primary); transition: width 0.2s; }
+
+/* ===== Modal detail ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--backdrop);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+.modal {
+  background: var(--card);
+  color: var(--text);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 960px;
+  padding: 8px 24px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.modal-topbar { display: flex; justify-content: flex-end; }
+.modal-close { background: transparent; color: var(--muted); font-size: 1.4rem; line-height: 1; padding: 4px 10px; }
+.modal-close:hover { background: var(--card-muted); color: var(--text); }
+
+.detail h2 { font-size: 1.25rem; margin-bottom: 4px; }
+
+/* ===== Toast Undo ===== */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  max-width: calc(100% - 40px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+}
+.toast-undo { background: transparent; color: var(--toast-link); text-decoration: underline; padding: 4px 6px; }
+.toast-undo:hover { background: rgba(255, 255, 255, 0.1); }
+
+/* Penanda area yang masih placeholder (dihapus setelah komponen asli masuk) */
+.placeholder-note {
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  color: var(--muted);
+  background: var(--card-muted);
+}
