@@ -14,7 +14,7 @@ import { AppHeader } from "./components/AppHeader";
 import { ConflictBanner } from "./components/ConflictBanner";
 import { StatsCards } from "./components/StatsCards";
 import { UndoToast } from "./components/UndoToast";
-import type { TabId } from "./components/AppHeader";
+import type { TabId, Theme } from "./components/AppHeader";
 import { Modal } from "./components/Modal";
 import { SkillProfile } from "./components/SkillProfile";
 import { JobExplorer } from "./components/JobExplorer";
@@ -36,6 +36,14 @@ export default function App() {
   // ===== State utama (persist ke localStorage lewat custom hook) =====
   const [kaptenSkills, setKaptenSkills] = useLocalStorage<string[]>("kaptenSkills", DEFAULT_SKILLS);
   const [applications, setApplications] = useLocalStorage<Application[]>("applications", []);
+  // Bonus dark mode: pilihan tema ikut tersimpan
+  const [theme, setTheme] = useLocalStorage<Theme>("theme", "light");
+
+  // Sinkronkan tema ke <html data-theme="..."> (DOM di luar komponen React),
+  // supaya CSS variables berganti untuk seluruh halaman termasuk <body>
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme === "dark" ? "dark" : "light";
+  }, [theme]);
 
   // ===== State UI (tidak perlu disimpan) =====
   const [activeTab, setActiveTab] = useState<TabId>("explore");
@@ -164,6 +172,8 @@ export default function App() {
         applicationCount={applications.length}
         offerCount={offers.length}
         onAddApplicationClick={goToApplicationForm}
+        theme={theme}
+        onToggleTheme={() => setTheme((prev) => (prev === "dark" ? "light" : "dark"))}
       />
 
       {/* Hero desain Rifqi */}

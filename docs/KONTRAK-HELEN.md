@@ -22,7 +22,8 @@ Dari Sabil (pemegang `App.tsx`). Isinya: komponen yang kamu kerjakan, props yang
   - Class Rifqi (`index.css`): `.panel`, `.card`, `.card-head`, `.row`, `.grid`, `.badge-green/yellow/red`, `.chip`, `.muted`, `.error-text`, `.error-box`, `.form`
   - Class Sabil (`App.css`): `.btn-secondary`, `.btn-danger`, `.btn-sm`, `.hint`, `.status-pill`, progress bar `.progress` + `.progress-fill` (lebar diatur `style={{ width: "75%" }}`)
   - Komponen `<StatusBadge status={app.status} />` untuk pill status.
-  - Warna: pakai CSS variables yang sudah ada, jangan kode warna langsung. Variable Rifqi: `var(--primary)`, `var(--text)`, `var(--muted)`, `var(--border)`, `var(--success)`, `var(--danger)`, `var(--radius)`. Untuk latar kotak/kartu pakai `var(--card)` (milik Sabil), bukan `var(--white)`.
+  - Warna: pakai CSS variables yang sudah ada, jangan kode warna langsung. Variable Rifqi: `var(--primary)`, `var(--text)`, `var(--muted)`, `var(--border)`, `var(--success)`, `var(--danger)`, `var(--radius)`. Untuk latar kotak/kartu pakai `var(--card)` / `var(--card-muted)` (milik Sabil), bukan `var(--white)` atau `#fff`.
+  - **Dark mode** sudah ada (toggle "🌙 Gelap" di navbar). Variable di atas otomatis berganti nilai saat dark mode, jadi komponen yang memakai variable (bukan kode warna langsung) ikut berubah tanpa kerja tambahan. Cek komponenmu di kedua mode sebelum push.
 - Helper siap pakai (milik Sabil, boleh di-import):
   - `src/utils/format.ts`: `formatRupiah(4500000)` → `"Rp 4.500.000"`, `formatDateTime("2026-11-22T10:00")` → `"22 Nov 2026, 10.00"`
   - `src/utils/ghosting.ts`: `canBeGhosted(status)` untuk mengaktifkan/men-disable tombol Simulasi. Badge "Rawan Ghosting" sudah tampil di kartu War Room, jadi tidak wajib di detail. Hindari `Date.now()` langsung di render (oxlint memberi warning purity); kalau butuh waktu sekarang, minta Sabil mengoper prop `now`.

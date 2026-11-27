@@ -17,6 +17,55 @@
   --toast-link: #93c5fd;
 }
 
+/* ===== Dark mode (bonus) =====
+   Aktif saat <html data-theme="dark"> (diatur App lewat useEffect).
+   Light mode = style asli, tidak ada yang diubah. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  /* variable netral milik Rifqi, hanya diganti di dark mode */
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --border: #334155;
+  --surface: #0b1220;
+  --primary-soft: rgba(96, 165, 250, 0.16);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+  /* variable milik Sabil */
+  --card: #162033;
+  --card-muted: #0f1a2b;
+  --link: #93c5fd;
+  --disabled-bg: #334155;
+  --disabled-text: #94a3b8;
+  --danger-soft: #3b1219;
+  --danger-border: #7f1d1d;
+  --danger-strong: #fecaca;
+  --backdrop: rgba(0, 0, 0, 0.7);
+  --toast-bg: #e2e8f0;
+  --toast-text: #0f172a;
+  --toast-link: #1d4ed8;
+}
+
+/* Bagian Rifqi yang memakai warna putih/tetap: diganti hanya di dark mode.
+   --white sengaja tidak diubah karena juga dipakai untuk teks hero & teks tombol. */
+[data-theme="dark"] .navbar { background: rgba(11, 18, 32, 0.92); }
+[data-theme="dark"] .logo { color: var(--text); }
+[data-theme="dark"] .logo span { color: #60a5fa; }
+[data-theme="dark"] .panel,
+[data-theme="dark"] .card { background: var(--card); }
+[data-theme="dark"] input,
+[data-theme="dark"] select { background: var(--card-muted); }
+[data-theme="dark"] button:disabled { background: var(--disabled-bg); color: var(--disabled-text); }
+[data-theme="dark"] .chip,
+[data-theme="dark"] .chip-remove { color: #93c5fd; }
+[data-theme="dark"] .badge-yellow { color: #fbbf24; }
+[data-theme="dark"] .error-box { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger-strong); }
+[data-theme="dark"] .error-text,
+[data-theme="dark"] .missing { color: #f87171; }
+/* Komponen Sabil yang butuh warna lebih terang di latar gelap */
+[data-theme="dark"] .card-ghosting { background: var(--danger-soft); }
+[data-theme="dark"] .btn-danger,
+[data-theme="dark"] .stat-danger { color: #f87171; }
+[data-theme="dark"] .stat-success { color: #4ade80; }
+
 /* ===== Navbar: tab sesuai wireframe (dalam .navbar milik Rifqi) ===== */
 .app-navbar { flex-wrap: wrap; }
 
@@ -34,6 +83,8 @@
 
 .nav-actions { display: flex; align-items: center; gap: 8px; }
 .btn-cta { padding: 8px 16px; }
+.btn-theme { background: transparent; color: var(--text); border: 1px solid var(--border); padding: 8px 12px; }
+.btn-theme:hover { background: var(--primary-soft); }
 
 @media (max-width: 860px) {
   .nav-tabs { order: 3; width: 100%; flex-wrap: nowrap; overflow-x: auto; }

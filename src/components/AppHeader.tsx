@@ -1,4 +1,5 @@
 export type TabId = "explore" | "pipeline" | "offers";
+export type Theme = "light" | "dark";
 
 interface AppHeaderProps {
   activeTab: TabId;
@@ -6,6 +7,8 @@ interface AppHeaderProps {
   applicationCount: number;
   offerCount: number;
   onAddApplicationClick: () => void;
+  theme: Theme;
+  onToggleTheme: () => void;
 }
 
 // Navbar desain Rifqi (.navbar, .navbar-inner, .logo) diisi tab sesuai wireframe
@@ -15,12 +18,15 @@ export function AppHeader({
   applicationCount,
   offerCount,
   onAddApplicationClick,
+  theme,
+  onToggleTheme,
 }: AppHeaderProps) {
   const tabs: { id: TabId; label: string }[] = [
     { id: "explore", label: "Eksplorasi Lowongan" },
     { id: "pipeline", label: `Pipeline Lamaran (${applicationCount})` },
     { id: "offers", label: `Bandingkan Offer (${offerCount})` },
   ];
+  const isDark = theme === "dark";
 
   return (
     <header className="navbar">
@@ -51,6 +57,15 @@ export function AppHeader({
         </nav>
 
         <div className="nav-actions">
+          <button
+            type="button"
+            className="btn-theme"
+            aria-pressed={isDark}
+            title="Ganti tema terang/gelap"
+            onClick={onToggleTheme}
+          >
+            {isDark ? "☀️ Terang" : "🌙 Gelap"}
+          </button>
           <button type="button" className="btn-cta" onClick={onAddApplicationClick}>
             + Catat Lamaran
           </button>
