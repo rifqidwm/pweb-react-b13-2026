@@ -4,9 +4,13 @@ import type { Application } from "./types/application";
 import type { JobListing } from "./types/job";
 import type { ApplicationUpdater } from "./types/handlers";
 import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useNow } from "./hooks/useNow";
 import { createApplicationFromJob } from "./utils/createApplication";
 import { isDuplicate } from "./utils/isDuplicate";
+import { canBeGhosted, shiftDaysBack, SIMULATE_DAYS } from "./utils/ghosting";
+import { findInterviewConflicts } from "./utils/interviewConflict";
 import { AppHeader } from "./components/AppHeader";
+import { ConflictBanner } from "./components/ConflictBanner";
 import type { TabId } from "./components/AppHeader";
 import { Modal } from "./components/Modal";
 import { SkillProfile } from "./components/SkillProfile";
@@ -17,7 +21,6 @@ import { ApplicationDetail } from "./components/ApplicationDetail";
 import { OfferComparator } from "./components/OfferComparator";
 
 const DEFAULT_SKILLS = ["React", "TypeScript", "CSS"];
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 export default function App() {
   // ===== State utama (persist ke localStorage lewat custom hook) =====
@@ -31,11 +34,16 @@ export default function App() {
   // Wadah form tambah lamaran (#tambah, desain Rifqi), tujuan tombol "+ Catat Lamaran"
   const formSectionRef = useRef<HTMLDivElement>(null);
 
+  // Jam yang di-update tiap 1 menit, dasar hitung Rawan Ghosting
+  const now = useNow(60_000);
+
   // ===== Derived state (dihitung tiap render, tidak disimpan di useState) =====
   // Yang disimpan hanya id-nya, objeknya selalu diambil dari data terbaru.
   // Jika lamaran terhapus, hasilnya null -> modal detail otomatis tertutup.
   const selectedApplication = applications.find((app) => app.id === selectedId) ?? null;
   const offers = applications.filter((app) => app.status === "OFFER");
+  // Bentrok dicek dari SELURUH applications, bukan hasil filter War Room
+  const interviewConflicts = findInterviewConflicts(applications);
 
   // ===== Handler skill Kapten =====
   const handleAddSkill = (skill: string) => {
@@ -64,13 +72,14 @@ export default function App() {
     setSelectedId((prev) => (prev === id ? null : prev));
   };
 
-  // Mundurkan lastUpdatedAt 15 hari (khusus APPLIED/SCREENING) untuk demo badge Rawan Ghosting
+  // Mundurkan lastUpdatedAt 15 hari untuk demo badge Rawan Ghosting.
+  // Tombolnya sudah disabled untuk status lain; guard ini hanya pengaman terakhir.
   const simulateGhosting = (id: string) => {
-    updateApplication(id, (app) => {
-      if (app.status !== "APPLIED" && app.status !== "SCREENING") return app;
-      const mundur = new Date(new Date(app.lastUpdatedAt).getTime() - 15 * DAY_MS);
-      return { ...app, lastUpdatedAt: mundur.toISOString() };
-    });
+    updateApplication(id, (app) =>
+      canBeGhosted(app.status)
+        ? { ...app, lastUpdatedAt: shiftDaysBack(app.lastUpdatedAt, SIMULATE_DAYS) }
+        : app
+    );
   };
 
   const handleSaveJob = (job: JobListing) => {
@@ -111,7 +120,10 @@ export default function App() {
       </section>
 
       <main className="container">
-        {/* Tahap 2: banner bentrok jadwal. Tahap 3: 5 kartu statistik. */}
+        {/* Banner tampil di semua tab, tidak terpengaruh filter */}
+        {interviewConflicts.length > 0 && <ConflictBanner conflicts={interviewConflicts} />}
+
+        {/* Tahap 3: 5 kartu statistik. */}
 
         {/* Tab Eksplorasi (layout Rifqi) hanya disembunyikan, bukan unmount, supaya data lowongan,
             kata kunci, filter, dan isi form tidak hilang + tidak fetch ulang tiap ganti tab */}
@@ -143,7 +155,9 @@ export default function App() {
           <WarRoom
             applications={applications}
             kaptenSkills={kaptenSkills}
+            now={now}
             onOpenDetail={(id) => setSelectedId(id)}
+            onSimulateGhosting={simulateGhosting}
           />
         )}
 

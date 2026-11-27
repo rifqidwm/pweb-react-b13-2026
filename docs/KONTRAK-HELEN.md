@@ -20,9 +20,12 @@ Dari Sabil (pemegang `App.tsx`). Isinya: komponen yang kamu kerjakan, props yang
 - Tipe data dari Rifqi ada di `src/types/application.ts` (jangan diubah). Tipe handler ada di `src/types/handlers.ts`.
 - Styling: ikuti desain Rifqi, tanpa Tailwind / library baru.
   - Class Rifqi (`index.css`): `.panel`, `.card`, `.card-head`, `.row`, `.grid`, `.badge-green/yellow/red`, `.chip`, `.muted`, `.error-text`, `.error-box`, `.form`
-  - Class Sabil (`App.css`): `.btn-secondary`, `.btn-danger`, `.btn-sm`, `.hint`, `.status-pill`
+  - Class Sabil (`App.css`): `.btn-secondary`, `.btn-danger`, `.btn-sm`, `.hint`, `.status-pill`, progress bar `.progress` + `.progress-fill` (lebar diatur `style={{ width: "75%" }}`)
   - Komponen `<StatusBadge status={app.status} />` untuk pill status.
   - Warna: pakai CSS variables yang sudah ada, jangan kode warna langsung. Variable Rifqi: `var(--primary)`, `var(--text)`, `var(--muted)`, `var(--border)`, `var(--success)`, `var(--danger)`, `var(--radius)`. Untuk latar kotak/kartu pakai `var(--card)` (milik Sabil), bukan `var(--white)`.
+- Helper siap pakai (milik Sabil, boleh di-import):
+  - `src/utils/format.ts`: `formatRupiah(4500000)` → `"Rp 4.500.000"`, `formatDateTime("2026-11-22T10:00")` → `"22 Nov 2026, 10.00"`
+  - `src/utils/ghosting.ts`: `canBeGhosted(status)` untuk mengaktifkan/men-disable tombol Simulasi. Badge "Rawan Ghosting" sudah tampil di kartu War Room, jadi tidak wajib di detail. Hindari `Date.now()` langsung di render (oxlint memberi warning purity); kalau butuh waktu sekarang, minta Sabil mengoper prop `now`.
 - Dilarang `any`. Sebelum push, wajib lolos:
   ```bash
   npx tsc --noEmit -p tsconfig.app.json
@@ -82,7 +85,7 @@ Artinya:
 ### Yang wajib ada di komponenmu
 
 - Tombol **Hapus** memanggil `onDeleteApplication(application.id)`. App yang menutup modal dan menampilkan toast Undo 5 detik.
-- Tombol **Simulasi +15 Hari** memanggil `onSimulateGhosting(application.id)`. Tombol selalu tampil, tapi **disabled** untuk status selain `APPLIED`/`SCREENING`, dengan keterangan singkat (contoh: "Simulasi hanya untuk status APPLIED/SCREENING."). Jangan sampai tombol bisa diklik tapi tidak terjadi apa-apa. Lihat placeholder sebagai contoh.
+- Tombol **Simulasi +15 Hari** memanggil `onSimulateGhosting(application.id)`. Tombol selalu tampil, tapi **disabled** untuk status selain `APPLIED`/`SCREENING`, dengan keterangan singkat (contoh: "Simulasi hanya untuk status APPLIED/SCREENING."). Pakai `canBeGhosted(application.status)` dari `src/utils/ghosting.ts`. Jangan sampai tombol bisa diklik tapi tidak terjadi apa-apa. Lihat placeholder dan `PipelineCard.tsx` sebagai contoh.
 - Skill Match: `getSkillMatch(kaptenSkills, application.requiredSkills)` dari `src/utils/skillMatch.ts`.
 - Posisi tombol mengikuti placeholder (header kanan, sesuai wireframe).
 

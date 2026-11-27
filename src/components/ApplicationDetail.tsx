@@ -1,6 +1,7 @@
 import type { Application } from "../types/application";
 import type { ApplicationIdHandler, UpdateApplicationHandler } from "../types/handlers";
 import { getSkillMatch } from "../utils/skillMatch";
+import { canBeGhosted } from "../utils/ghosting";
 import { InterviewPrep } from "./InterviewPrep";
 import { StatusBadge } from "./StatusBadge";
 
@@ -22,7 +23,7 @@ export function ApplicationDetail({
   onSimulateGhosting,
 }: ApplicationDetailProps) {
   const match = getSkillMatch(kaptenSkills, application.requiredSkills);
-  const canSimulate = application.status === "APPLIED" || application.status === "SCREENING";
+  const canSimulate = canBeGhosted(application.status);
 
   return (
     <div className="detail">
