@@ -1,0 +1,110 @@
+/* Style milik Sabil: tab navbar, modal, status pill, War Room, statistik, toast, dark mode.
+   Memakai CSS variables milik Rifqi di index.css (--primary, --text, --muted, --border,
+   --surface, --white, --success, --danger, --radius, --shadow, ...).
+   Variable tambahan di bawah memakai nama sendiri, tidak menimpa variable Rifqi. */
+:root {
+  --card: var(--white);
+  --card-muted: #f8fafc;
+  --link: var(--primary);
+  --disabled-bg: #e2e8f0;
+  --disabled-text: var(--muted);
+  --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --danger-strong: #991b1b;
+  --backdrop: rgba(9, 31, 83, 0.55);
+}
+
+/* ===== Navbar: tab sesuai wireframe (dalam .navbar milik Rifqi) ===== */
+.app-navbar { flex-wrap: wrap; }
+
+.nav-tabs { display: flex; flex-wrap: wrap; gap: 4px; }
+.nav-tab {
+  background: transparent;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.nav-tab:hover { background: var(--primary-soft); color: var(--link); }
+.nav-tab-active,
+.nav-tab-active:hover { background: var(--primary-soft); color: var(--link); font-weight: 700; }
+
+.nav-actions { display: flex; align-items: center; gap: 8px; }
+.btn-cta { padding: 8px 16px; }
+
+@media (max-width: 860px) {
+  .nav-tabs { order: 3; width: 100%; flex-wrap: nowrap; overflow-x: auto; }
+  .nav-tab { white-space: nowrap; }
+}
+
+/* Target scroll tombol "+ Catat Lamaran" tidak tertutup navbar sticky */
+.scroll-target { scroll-margin-top: 80px; }
+
+/* ===== Tombol varian ===== */
+.btn-sm { padding: 6px 12px; font-size: 0.85rem; border-radius: 10px; }
+.btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--card-muted); }
+.btn-danger { background: var(--card); color: var(--danger); border: 1px solid var(--danger-border); }
+.btn-danger:hover { background: var(--danger-soft); }
+.btn-secondary:disabled,
+.btn-danger:disabled { background: var(--disabled-bg); color: var(--disabled-text); border-color: var(--border); }
+
+.hint { font-size: 0.82rem; color: var(--muted); margin: 4px 0 0; }
+
+/* ===== Status pill ===== */
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  height: fit-content;
+}
+.status-wishlist { background: #e2e8f0; color: #334155; }
+.status-applied { background: #dbeafe; color: #1e40af; }
+.status-screening { background: #e0e7ff; color: #3730a3; }
+.status-interview { background: #fef3c7; color: #92400e; }
+.status-offer { background: #dcfce7; color: #166534; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.status-ghosted { background: #f3e8ff; color: #6b21a8; }
+
+/* ===== Kartu lamaran (di atas .card milik Rifqi) ===== */
+.card-actions { margin: auto 0 0; }
+
+/* ===== Modal detail ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: var(--backdrop);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+.modal {
+  background: var(--card);
+  color: var(--text);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 960px;
+  padding: 8px 24px 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+.modal-topbar { display: flex; justify-content: flex-end; }
+.modal-close { background: transparent; color: var(--muted); font-size: 1.4rem; line-height: 1; padding: 4px 10px; }
+.modal-close:hover { background: var(--card-muted); color: var(--text); }
+
+.detail h2 { font-size: 1.25rem; margin-bottom: 4px; }
+
+/* Penanda area yang masih placeholder (dihapus setelah komponen asli masuk) */
+.placeholder-note {
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  color: var(--muted);
+  background: var(--card-muted);
+}
