@@ -52,8 +52,8 @@ export default function App() {
   // Wadah form tambah lamaran (#tambah, desain Rifqi), tujuan tombol "+ Catat Lamaran"
   const formSectionRef = useRef<HTMLDivElement>(null);
 
-  // Jam yang di-update tiap 1 menit, dasar hitung Rawan Ghosting
-  const now = useNow(60_000);
+  // Jam dasar hitung Rawan Ghosting: di-update tiap 1 menit + setiap data lamaran berubah
+  const [now, refreshNow] = useNow(60_000);
 
   // ===== Undo hapus =====
   const [pendingDelete, setPendingDelete] = useState<PendingDelete | null>(null);
@@ -91,12 +91,14 @@ export default function App() {
   const addApplication = (app: Application) => {
     // Pengaman terakhir anti-duplikat, dicek terhadap state paling baru (prev)
     setApplications((prev) => (isDuplicate(prev, app.company, app.role) ? prev : [...prev, app]));
+    refreshNow();
   };
 
   // updater wajib mengembalikan objek baru (immutable).
   // Sengaja TIDAK mengubah lastUpdatedAt: itu hanya berubah saat lamaran dibuat / status berubah.
   const updateApplication = (id: string, updater: ApplicationUpdater) => {
     setApplications((prev) => prev.map((app) => (app.id === id ? updater(app) : app)));
+    refreshNow();
   };
 
   const deleteApplication = (id: string) => {

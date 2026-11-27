@@ -57,11 +57,13 @@
 [data-theme="dark"] .chip,
 [data-theme="dark"] .chip-remove { color: #93c5fd; }
 [data-theme="dark"] .badge-yellow { color: #fbbf24; }
+/* Teks badge dipertegas supaya kontras di atas latar pastelnya (WCAG AA) */
+[data-theme="dark"] .badge-green { color: #166534; }
+[data-theme="dark"] .badge-red { color: #991b1b; }
 [data-theme="dark"] .error-box { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger-strong); }
 [data-theme="dark"] .error-text,
 [data-theme="dark"] .missing { color: #f87171; }
 /* Komponen Sabil yang butuh warna lebih terang di latar gelap */
-[data-theme="dark"] .card-ghosting { background: var(--danger-soft); }
 [data-theme="dark"] .btn-danger,
 [data-theme="dark"] .stat-danger { color: #f87171; }
 [data-theme="dark"] .stat-success { color: #4ade80; }
@@ -95,7 +97,8 @@
 .scroll-target { scroll-margin-top: 80px; }
 
 /* ===== Tombol varian ===== */
-.btn-sm { padding: 6px 12px; font-size: 0.85rem; border-radius: 10px; }
+/* border transparan: tombol biru sama tinggi dengan tombol ber-border di sebelahnya */
+.btn-sm { padding: 6px 10px; font-size: 0.85rem; border-radius: 10px; border: 1px solid transparent; }
 .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
 .btn-secondary:hover { background: var(--card-muted); }
 .btn-danger { background: var(--card); color: var(--danger); border: 1px solid var(--danger-border); }
@@ -171,10 +174,13 @@
 .empty-state { text-align: center; padding: 24px 0; }
 
 /* ===== Kartu lamaran (di atas .card milik Rifqi) ===== */
-.card-ghosting { border-color: var(--danger-border); background: var(--danger-soft); }
+/* Penanda ghosting lewat garis merah di kiri; latar kartu tidak diubah supaya teks tetap kontras */
+.card-ghosting,
+.card-ghosting:hover { border-color: var(--danger-border); border-left: 4px solid var(--danger); }
 .badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .meta { display: grid; gap: 4px; font-size: 0.9rem; }
-.card-actions { margin: auto 0 0; }
+/* 3 tombol (Detail, Simulasi, Hapus) muat dalam 1 baris di kartu */
+.card-actions { margin: auto 0 0; gap: 6px; }
 
 .progress { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
 .progress-fill { height: 100%; background: var(--primary); transition: width 0.2s; }
