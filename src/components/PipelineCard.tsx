@@ -12,6 +12,7 @@ interface PipelineCardProps {
   now: number;
   onOpenDetail: (id: string) => void;
   onSimulateGhosting: ApplicationIdHandler;
+  onDelete: ApplicationIdHandler;
 }
 
 export function PipelineCard({
@@ -21,6 +22,7 @@ export function PipelineCard({
   now,
   onOpenDetail,
   onSimulateGhosting,
+  onDelete,
 }: PipelineCardProps) {
   const doneCount = app.checklist.filter((item) => item.done).length;
   const totalCount = app.checklist.length;
@@ -73,6 +75,9 @@ export function PipelineCard({
           onClick={() => onSimulateGhosting(app.id)}
         >
           Simulasi +{SIMULATE_DAYS} Hari
+        </button>
+        <button type="button" className="btn-danger btn-sm" onClick={() => onDelete(app.id)}>
+          Hapus
         </button>
       </div>
       {!canSimulate && <p className="hint">Simulasi hanya untuk status APPLIED/SCREENING.</p>}

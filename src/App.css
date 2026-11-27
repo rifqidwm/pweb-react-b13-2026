@@ -12,6 +12,9 @@
   --danger-border: #fecaca;
   --danger-strong: #991b1b;
   --backdrop: rgba(9, 31, 83, 0.55);
+  --toast-bg: var(--navy);
+  --toast-text: #ffffff;
+  --toast-link: #93c5fd;
 }
 
 /* ===== Navbar: tab sesuai wireframe (dalam .navbar milik Rifqi) ===== */
@@ -83,6 +86,21 @@
 }
 .banner-conflict ul { margin: 6px 0 0; padding-left: 20px; }
 
+/* ===== 5 kartu statistik (di atas .panel milik Rifqi) ===== */
+.stats-grid {
+  position: relative; /* tampil di atas hero (container Rifqi memakai margin negatif) */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card { margin: 0; padding: 16px 20px; display: grid; gap: 2px; }
+.stat-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.stat-value { font-size: 1.75rem; font-weight: 800; line-height: 1.2; }
+.stat-note { font-size: 0.8rem; color: var(--muted); }
+.stat-danger { color: var(--danger); }
+.stat-success { color: var(--success); }
+
 /* ===== War Room ===== */
 .section-head {
   display: flex;
@@ -136,6 +154,26 @@
 .modal-close:hover { background: var(--card-muted); color: var(--text); }
 
 .detail h2 { font-size: 1.25rem; margin-bottom: 4px; }
+
+/* ===== Toast Undo ===== */
+.toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  max-width: calc(100% - 40px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  font-size: 0.9rem;
+}
+.toast-undo { background: transparent; color: var(--toast-link); text-decoration: underline; padding: 4px 6px; }
+.toast-undo:hover { background: rgba(255, 255, 255, 0.1); }
 
 /* Penanda area yang masih placeholder (dihapus setelah komponen asli masuk) */
 .placeholder-note {

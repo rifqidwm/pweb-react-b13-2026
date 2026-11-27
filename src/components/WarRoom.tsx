@@ -25,6 +25,7 @@ interface WarRoomProps {
   now: number; // waktu sekarang dari useNow di App (dasar hitung Rawan Ghosting)
   onOpenDetail: (id: string) => void;
   onSimulateGhosting: ApplicationIdHandler;
+  onDeleteApplication: ApplicationIdHandler;
 }
 
 export function WarRoom({
@@ -33,6 +34,7 @@ export function WarRoom({
   now,
   onOpenDetail,
   onSimulateGhosting,
+  onDeleteApplication,
 }: WarRoomProps) {
   // State lokal filter (hanya untuk tampilan, tidak perlu disimpan)
   const [keyword, setKeyword] = useState("");
@@ -138,6 +140,7 @@ export function WarRoom({
               now={now}
               onOpenDetail={onOpenDetail}
               onSimulateGhosting={onSimulateGhosting}
+              onDelete={onDeleteApplication}
             />
           ))}
         </div>
